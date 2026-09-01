@@ -24,7 +24,7 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/auth/login", {
+      const response = await fetch("https://fundsroom-erp-9r01.onrender.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,9 +57,9 @@ function App() {
       try {
         const [customersResponse, productsResponse, challansResponse] =
           await Promise.all([
-            fetch("http://localhost:5000/customers"),
-            fetch("http://localhost:5000/products"),
-            fetch("http://localhost:5000/challans"),
+            fetch("https://fundsroom-erp-9r01.onrender.com/customers"),
+            fetch("https://fundsroom-erp-9r01.onrender.com/products"),
+            fetch("https://fundsroom-erp-9r01.onrender.com/challans"),
           ]);
 
         const customers = await customersResponse.json();
