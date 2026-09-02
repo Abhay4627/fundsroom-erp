@@ -5,7 +5,7 @@ function SalesChallans() {
 
   const fetchChallans = async () => {
     try {
-      const response = await fetch("https://fundsroom-erp-9r01.onrender.com/challans");
+      const response = await fetch("https://fundsroom-erp-9ro1.onrender.com/challans");
       const data = await response.json();
       setChallans(data);
     } catch (error) {
