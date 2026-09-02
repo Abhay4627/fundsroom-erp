@@ -5,7 +5,7 @@ function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("https://fundsroom-erp-9r01.onrender.com/products");
+      const response = await fetch("https://fundsroom-erp-9ro1.onrender.com/products");
       const data = await response.json();
       setProducts(data);
     } catch (error) {
