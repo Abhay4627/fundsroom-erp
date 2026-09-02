@@ -29,6 +29,10 @@ pool.query("SELECT NOW()")
     console.error("Database connection failed:", error.message);
   });
 
+app.get("/health", (req, res) => {
+  res.json({ status: "OK", message: "Fundsroom API is live" });
+});
+
 app.get("/", (req, res) => {
   res.json({ message: "Fundsroom ERP Backend is running!" });
 });
