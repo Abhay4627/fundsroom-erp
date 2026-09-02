@@ -5,7 +5,7 @@ function StockMovements() {
 
   const fetchMovements = async () => {
     try {
-      const response = await fetch("https://fundsroom-erp-9r01.onrender.com/stock-movements");
+      const response = await fetch("https://fundsroom-erp-9ro1.onrender.com/stock-movements");
       const data = await response.json();
       setMovements(data);
     } catch (error) {
