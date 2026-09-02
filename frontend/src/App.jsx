@@ -57,9 +57,9 @@ function App() {
       try {
         const [customersResponse, productsResponse, challansResponse] =
           await Promise.all([
-            fetch("https://fundsroom-erp-9r01.onrender.com/customers"),
-            fetch("https://fundsroom-erp-9r01.onrender.com/products"),
-            fetch("https://fundsroom-erp-9r01.onrender.com/challans"),
+            fetch("https://fundsroom-erp-9ro1.onrender.com/customers"),
+            fetch("https://fundsroom-erp-9ro1.onrender.com/products"),
+            fetch("https://fundsroom-erp-9ro1.onrender.com/challans"),
           ]);
 
         const customers = await customersResponse.json();
