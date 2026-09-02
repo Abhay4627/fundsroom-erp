@@ -21,6 +21,13 @@ app.use("/products", productRoutes);
 app.use("/stock-movements", stockRoutes);
 app.use("/challans", challanRoutes);
 
+app.use((req, res) => {
+  res.status(404).json({
+    message: "Express server received the request",
+    path: req.path,
+  });
+});
+
 pool.query("SELECT NOW()")
   .then(() => {
     console.log("Database connected successfully!");
