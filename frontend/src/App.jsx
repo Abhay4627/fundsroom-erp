@@ -24,7 +24,7 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://fundsroom-erp-9r01.onrender.com/auth/login", {
+      const response = await fetch("https://fundsroom-erp-9ro1.onrender.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
