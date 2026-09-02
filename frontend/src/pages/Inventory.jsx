@@ -3,10 +3,25 @@ import { useEffect, useState } from "react";
 function Inventory() {
   const [products, setProducts] = useState([]);
 
+  const API_URL = "https://fundsroom-erp-9ro1.onrender.com";
+
   const fetchProducts = async () => {
     try {
-      const response = await fetch("https://fundsroom-erp-9ro1.onrender.com/products");
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(`${API_URL}/products`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message || "Failed to fetch inventory");
+        return;
+      }
+
       setProducts(data);
     } catch (error) {
       console.error("Failed to fetch inventory", error);
@@ -49,8 +64,12 @@ function Inventory() {
               <td style={styles.td}>{product.sku}</td>
               <td style={styles.td}>{product.category}</td>
               <td style={styles.td}>{product.current_stock}</td>
-              <td style={styles.td}>{product.minimum_stock_quantity}</td>
-              <td style={styles.td}>{product.warehouse_location}</td>
+              <td style={styles.td}>
+                {product.minimum_stock_quantity}
+              </td>
+              <td style={styles.td}>
+                {product.warehouse_location}
+              </td>
             </tr>
           ))}
         </tbody>

@@ -24,13 +24,16 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://fundsroom-erp-9ro1.onrender.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://fundsroom-erp-9ro1.onrender.com/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
 
@@ -55,19 +58,38 @@ function App() {
 
     const fetchDashboardData = async () => {
       try {
-        const [customersResponse, productsResponse, challansResponse] =
-          await Promise.all([
-            fetch("https://fundsroom-erp-9ro1.onrender.com/customers"),
-            fetch("https://fundsroom-erp-9ro1.onrender.com/products"),
-            fetch("https://fundsroom-erp-9ro1.onrender.com/challans"),
-          ]);
+        const token = localStorage.getItem("token");
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const [
+          customersResponse,
+          productsResponse,
+          challansResponse,
+        ] = await Promise.all([
+          fetch(
+            "https://fundsroom-erp-9ro1.onrender.com/customers",
+            { headers }
+          ),
+          fetch(
+            "https://fundsroom-erp-9ro1.onrender.com/products",
+            { headers }
+          ),
+          fetch(
+            "https://fundsroom-erp-9ro1.onrender.com/challans",
+            { headers }
+          ),
+        ]);
 
         const customers = await customersResponse.json();
         const products = await productsResponse.json();
         const challans = await challansResponse.json();
 
         const totalStock = products.reduce(
-          (total, product) => total + Number(product.current_stock || 0),
+          (total, product) =>
+            total + Number(product.current_stock || 0),
           0
         );
 
@@ -139,6 +161,7 @@ function App() {
               localStorage.clear();
               setLoggedIn(false);
               setUser(null);
+              setPage("dashboard");
             }}
           >
             Logout
@@ -152,6 +175,10 @@ function App() {
 
               <p>
                 Welcome, <strong>{user?.name}</strong>
+              </p>
+
+              <p>
+                Role: <strong>{user?.role}</strong>
               </p>
 
               <div style={styles.cards}>
@@ -184,7 +211,7 @@ function App() {
 
           {page === "customers" && <Customers />}
 
-          {page === "products" && <Products />}
+          {page === "products" && <Products user={user} />}
 
           {page === "inventory" && <Inventory />}
 

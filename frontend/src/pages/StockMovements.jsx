@@ -1,12 +1,27 @@
 import { useEffect, useState } from "react";
 
+const API_URL = "https://fundsroom-erp-9ro1.onrender.com";
+
 function StockMovements() {
   const [movements, setMovements] = useState([]);
 
   const fetchMovements = async () => {
     try {
-      const response = await fetch("https://fundsroom-erp-9ro1.onrender.com/stock-movements");
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(`${API_URL}/stock-movements`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message || "Failed to fetch stock movements");
+        return;
+      }
+
       setMovements(data);
     } catch (error) {
       console.error("Failed to fetch stock movements", error);
